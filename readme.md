@@ -15,3 +15,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 ## Learning Laravel + VUE Js
 
 Project Laravel + Vuejs Dalam Proses Pembelajaran
+
+## Installing admin LTE Io
+
+npm install admin-lte@v3.0.0-alpha.2 --save
