@@ -27,3 +27,7 @@ npm install admin-lte@v3.0.0-alpha.2 --save
 ## Installing Font Awesome Pakage
 
 npm install @fortawesome/fontawesome-free
+
+## Navigasi Uses Vue-Router
+
+npm insatll vue-router
