@@ -19,3 +19,11 @@ Project Laravel + Vuejs Dalam Proses Pembelajaran
 ## Installing admin LTE Io
 
 npm install admin-lte@v3.0.0-alpha.2 --save
+
+## Logo and Material Design
+
+1. https://www.flaticon.com/
+
+## Installing Font Awesome Pakage
+
+npm install @fortawesome/fontawesome-free
