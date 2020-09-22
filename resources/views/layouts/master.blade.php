@@ -172,19 +172,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                
                             </a> --}}
                             <router-link to="/dashboard" class="nav-link">
-                                <i class="fas fa-tachometer-alt nav-icon"></i>
+                                <i class="text-info fas fa-tachometer-alt nav-icon"></i>
                                 <p class=""><b>Dashboard</b></p>
                             </router-link>
                         </li>
                         <li class="nav-item">
                             <router-link to="/profile" class="nav-link">
-                                <i class="fas fa-user nav-icon"></i>
+                                <i class="fas fa-user nav-icon text-primary"></i>
                                 <p class="">Profile</p>
                             </router-link>
                         </li>
                         <li class="nav-item has-treeview active">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-cog"></i>
+                                <i class="nav-icon fas fa-cog text-warning"></i>
                                 <p>
                                     Management
                                     <i class="right fas fa-angle-left"></i>
@@ -206,10 +206,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-power-off nav-icon"></i>
-                                <p class="">Logout</p>
-                            </a>
+                            <a class="nav-link text-danger" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        <i class="fas fa-power-off nav-icon"></i>
+                                        <p class="">Logout</p>
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                         </li>
 
                     </ul>
