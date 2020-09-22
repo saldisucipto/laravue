@@ -164,17 +164,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+               <li class="nav-item">
+                <a href="#" class="nav-link">
+                <i class="fas fa-tachometer-alt nav-icon"></i>
+                <p class=""><b>Dashboard</b></p>
+                </a>
+            </li>
+          <li class="nav-item">
+              <a href="#" class="nav-link">
+              <i class="fas fa-user nav-icon"></i>
+              <p class="">Profile</p>
+              </a>
+          </li>
+          <li class="nav-item has-treeview active">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
               <p>
-                Starter Pages
+                Management
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="#" class="nav-link">
                   <i class="fas fa-circle nav-icon"></i>
                   <p>Active Page</p>
                 </a>
@@ -189,13 +201,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
-              </p>
+            <i class="fas fa-power-off nav-icon"></i>
+            <p class="">Logout</p>
             </a>
-          </li>
+        </li>
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -206,7 +216,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
+    {{-- <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -285,19 +295,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
-    </div>
+    </div> --}}
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
+  {{-- <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
       <h5>Title</h5>
       <p>Sidebar content</p>
     </div>
-  </aside>
+  </aside> --}}
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
