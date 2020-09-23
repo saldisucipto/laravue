@@ -1,7 +1,23 @@
 <template>
-  <div class="container pt-5">
+  <div class="container">
     <div class="row justify-content-center">
       <div class="col-12">
+        <div
+          class="alert alert-success alert-dismissible fade"
+          role="alert"
+          :class="{'show':isActive}"
+        >
+          <strong>Selamat</strong>
+          {{message}}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
         <div class="card">
           <div class="card-header">
             <div class="card-title pt-3">
@@ -190,21 +206,27 @@ export default {
         type: "",
         bio: "",
         photo: "",
-        message: "",
       }),
+      message: "",
+      isActive: false,
     };
   },
   methods: {
     createUser() {
+      this.$Progress.start();
       this.form
         .post("api/user")
         .then((resp) => {
           var item = resp.data;
+          this.message = resp.data.message;
+          this.isActive = true;
+          this.loadData();
         })
         .finally(() => {
           $("#modal-create-user").modal("hide");
           $("#form").trigger("reset");
         });
+      this.$Progress.finish();
     },
 
     loadData() {

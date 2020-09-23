@@ -17,9 +17,14 @@ npm install admin-lte@v3.0.0-alpha.2 --save
 
 1. https://www.flaticon.com/
 
-## Installing Font Awesome Pakage
+## Installing Mterial Design Library
 
-npm install @fortawesome/fontawesome-free
+1. font-awesome
+   npm install @fortawesome/fontawesome-free
+2. moment.js
+   npm install moment --save (customisasi tanggal)
+3. vue-progress bar
+   npm install vue-progressbar --save (untuk progress bar)
 
 ## Navigasi Uses Vue-Router
 
