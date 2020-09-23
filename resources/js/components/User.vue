@@ -47,17 +47,19 @@
                   <th>Name</th>
                   <th>Email</th>
                   <th>Type</th>
+                  <th>Register At</th>
                   <th>Modify</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>183</td>
-                  <td>John Doe</td>
-                  <td>11-7-2014</td>
+                <tr v-for="user in users" :key="user.id">
+                  <td>{{user.id}}</td>
+                  <td>{{user.name}}</td>
+                  <td>{{user.email}}</td>
                   <td>
-                    <span class="tag tag-success">Approved</span>
+                    <span class="tag tag-success">{{user.type}}</span>
                   </td>
+                  <td>{{user.created_at | myData}}</td>
                   <td>
                     <a class="text-warning" href="#">
                       <i class="fas fa-pen"></i>
@@ -94,7 +96,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="createUser">
+            <form @submit.prevent="createUser" id="form">
               <div class="form-group">
                 <label>Name</label>
                 <input
@@ -152,6 +154,7 @@
               <div class="form-group">
                 <label>Password</label>
                 <input
+                  v-model="form.password"
                   type="password"
                   name="password"
                   class="form-control"
@@ -161,11 +164,11 @@
                 />
                 <has-error :form="form" field="password"></has-error>
               </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Create</button>
+              </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Create</button>
           </div>
         </div>
       </div>
@@ -179,6 +182,7 @@ export default {
   name: "User",
   data() {
     return {
+      users: {},
       form: new Form({
         name: "",
         email: "",
@@ -186,13 +190,29 @@ export default {
         type: "",
         bio: "",
         photo: "",
+        message: "",
       }),
     };
   },
   methods: {
-    createUser: function () {
-      this.form.post("api/user");
+    createUser() {
+      this.form
+        .post("api/user")
+        .then((resp) => {
+          var item = resp.data;
+        })
+        .finally(() => {
+          $("#modal-create-user").modal("hide");
+          $("#form").trigger("reset");
+        });
     },
+
+    loadData() {
+      axios.get("api/user").then(({ data }) => (this.users = data.data));
+    },
+  },
+  created() {
+    this.loadData();
   },
 };
 </script>
