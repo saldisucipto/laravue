@@ -25,6 +25,8 @@ npm install admin-lte@v3.0.0-alpha.2 --save
    npm install moment --save (customisasi tanggal)
 3. vue-progress bar
    npm install vue-progressbar --save (untuk progress bar)
+4. swaet-alert2
+   npm install sweetalert2 (untuk alert interactive)
 
 ## Navigasi Uses Vue-Router
 

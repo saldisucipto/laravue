@@ -5,10 +5,10 @@
         <div
           class="alert alert-success alert-dismissible fade"
           role="alert"
-          :class="{'show':isActive}"
+          :class="{ show: isActive }"
         >
           <strong>Selamat</strong>
-          {{message}}
+          {{ message }}
           <button
             type="button"
             class="close"
@@ -38,7 +38,7 @@
               </div>
             </div>
             <div class="card-tools pt-3">
-              <div class="input-group input-group-md" style="width: 250px;">
+              <div class="input-group input-group-md" style="width: 250px">
                 <input
                   type="text"
                   name="table_search"
@@ -69,17 +69,18 @@
               </thead>
               <tbody>
                 <tr v-for="user in users" :key="user.id">
-                  <td>{{user.id}}</td>
-                  <td>{{user.name}}</td>
-                  <td>{{user.email}}</td>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.email }}</td>
                   <td>
-                    <span class="tag tag-success">{{user.type}}</span>
+                    <span class="tag tag-success">{{ user.type }}</span>
                   </td>
-                  <td>{{user.created_at | myData}}</td>
+                  <td>{{ user.created_at | myData }}</td>
                   <td>
                     <a class="text-warning" href="#">
                       <i class="fas fa-pen"></i>
-                    </a> |||
+                    </a>
+                    |||
                     <a class="text-danger" href="#">
                       <i class="fas fa-trash"></i>
                     </a>
@@ -107,7 +108,12 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -148,7 +154,7 @@
                   cols="10"
                   rows="2"
                   class="form-control"
-                  :class="{'is-invalid' : form.errors.has('bio')}"
+                  :class="{ 'is-invalid': form.errors.has('bio') }"
                 ></textarea>
               </div>
               <div class="form-group">
@@ -158,7 +164,7 @@
                   id="type"
                   v-model="form.type"
                   class="form-control"
-                  :class="{'is-invalid':form.errors.has('type')}"
+                  :class="{ 'is-invalid': form.errors.has('type') }"
                 >
                   <option readonly value>Select User Role</option>
                   <option value="admin">Admin</option>
@@ -176,12 +182,18 @@
                   class="form-control"
                   id="password"
                   placeholder="Your Password"
-                  :class="{'is-invalid':form.errors.has('password')}"
+                  :class="{ 'is-invalid': form.errors.has('password') }"
                 />
                 <has-error :form="form" field="password"></has-error>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
                 <button type="submit" class="btn btn-primary">Create</button>
               </div>
             </form>
@@ -219,7 +231,7 @@ export default {
         .then((resp) => {
           var item = resp.data;
           this.message = resp.data.message;
-          this.isActive = true;
+          this.isActive = false;
           this.loadData();
         })
         .finally(() => {
@@ -227,6 +239,10 @@ export default {
           $("#form").trigger("reset");
         });
       this.$Progress.finish();
+      toast.fire({
+        icon: "success",
+        title: "Berhasil Menmabahkan User Baru",
+      });
     },
 
     loadData() {

@@ -8,15 +8,34 @@ import VueRouter from "vue-router";
 import moment from "moment";
 // import vue-router
 import VueProgressBar from "vue-progressbar";
+// import sweat alert 
+import swal from 'sweetalert2';
 // import Components
 import Dashboard from "./components/Dashboard.vue";
 import Profile from "./components/Profile.vue";
 import User from "./components/User.vue";
 
+window.swal = swal
+
+// example toast with sweat alert
+const toast = swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
+
+window.toast = toast
+
 Vue.use(VueRouter);
 // vform
 // deklare vue moment
-Vue.filter("myData", function(created) {
+Vue.filter("myData", function (created) {
     return moment().format("DD MMMM YYYY");
 });
 
@@ -26,14 +45,17 @@ Vue.use(vueProgressbar, {
     failedcolor: "red",
     height: "2px"
 });
-import { Form, HasError, AlertError } from "vform";
+import {
+    Form,
+    HasError,
+    AlertError
+} from "vform";
 import vueProgressbar from "vue-progressbar";
 window.form = Form;
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 
-let routes = [
-    {
+let routes = [{
         path: "/dashboard",
         name: "Dashboard",
         component: Dashboard
