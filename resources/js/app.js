@@ -4,13 +4,21 @@ window.Vue = require('vue');
 
 // Import Vue Router 
 import VueRouter from 'vue-router';
-Vue.use(VueRouter);
-
 // import Components 
 import Dashboard from './components/Dashboard.vue'
 import Profile from './components/Profile.vue'
 import User from './components/User.vue'
 
+Vue.use(VueRouter);
+// vform 
+import {
+    Form,
+    HasError,
+    AlertError
+} from 'vform'
+window.form = Form;
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
 
 let routes = [{
     path: '/dashboard',
