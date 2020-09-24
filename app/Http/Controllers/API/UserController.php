@@ -111,4 +111,10 @@ class UserController extends Controller
         $user->delete();
         return ['message' => 'User Deleted'];
     }
+
+    // profile controller 
+    public function profile(){
+        return \auth('api')->user();
+
+    }
 }

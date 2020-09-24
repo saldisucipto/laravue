@@ -40,7 +40,7 @@
             </thead>
 
             <tbody>
-              <tr v-for="token in tokens">
+              <tr v-for="token in tokens" :key="token.id">
                 <!-- Client Name -->
                 <td style="vertical-align: middle">
                   {{ token.name }}
@@ -82,7 +82,7 @@
               <p class="mb-0"><strong>Whoops!</strong> Something went wrong!</p>
               <br />
               <ul>
-                <li v-for="error in form.errors">
+                <li v-for="error in form.errors" :key="error.id">
                   {{ error }}
                 </li>
               </ul>
@@ -110,7 +110,7 @@
                 <label class="col-md-4 col-form-label">Scopes</label>
 
                 <div class="col-md-6">
-                  <div v-for="scope in scopes">
+                  <div v-for="scope in scopes" :key="scope.id">
                     <div class="checkbox">
                       <label>
                         <input
@@ -170,9 +170,8 @@
               API requests.
             </p>
 
-            <textarea class="form-control" rows="10">{{
-              accessToken
-            }}</textarea>
+            <textarea v-model="accessToken" class="form-control" rows="10">
+            </textarea>
           </div>
 
           <!-- Modal Actions -->
