@@ -206,6 +206,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </ul>
                         </li>
                         <li class="nav-item">
+                          {{-- <a href="#" class="nav-link">
+                             
+                          </a> --}}
+                          <router-link to="/developer" class="nav-link">
+                              <i class="text-info fas fa-cogs nav-icon"></i>
+                              <p class=""><b>Developer</b></p>
+                          </router-link>
+                      </li>
+                        <li class="nav-item">
                             <a class="nav-link text-danger" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

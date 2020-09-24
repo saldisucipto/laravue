@@ -14,6 +14,24 @@ import swal from 'sweetalert2';
 import Dashboard from "./components/Dashboard.vue";
 import Profile from "./components/Profile.vue";
 import User from "./components/User.vue";
+import Developer from "./components/Developer.vue";
+
+
+// pasport components 
+Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue').default
+);
+
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue').default
+);
 
 window.swal = swal
 
@@ -25,8 +43,8 @@ const toast = swal.mixin({
     timer: 3000,
     timerProgressBar: true,
     didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        toast.addEventListener('mouseenter', swal.stopTimer)
+        toast.addEventListener('mouseleave', swal.resumeTimer)
     }
 })
 
@@ -69,8 +87,14 @@ let routes = [{
         path: "/user",
         name: "User",
         component: User
+    },
+    {
+        path: "/developer",
+        name: "Developer",
+        component: Developer
     }
 ];
+
 
 const router = new VueRouter({
     mode: "history",

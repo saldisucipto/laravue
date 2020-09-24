@@ -7,8 +7,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 
+
 class UserController extends Controller
 {
+    
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -74,7 +85,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'].,
+            'password' => ['somtimes', 'string', 'min:8'],
+        ]);
+        $user->update($request->all());
+
+        //update user
+        return ['message' => 'update the user info'];
     }
 
     /**
@@ -85,6 +105,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // user delete 
+        $user = User::findOrFail($id);
+        // delete user 
+        $user->delete();
+        return ['message' => 'User Deleted'];
     }
 }

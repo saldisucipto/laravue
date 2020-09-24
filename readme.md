@@ -24,7 +24,6 @@ npm install admin-lte@v3.0.0-alpha.2 --save
 2. moment.js
    npm install moment --save (customisasi tanggal)
 3. vue-progress bar
-   npm install vue-progressbar --save (untuk progress bar)
 4. swaet-alert2
    npm install sweetalert2 (untuk alert interactive)
 
@@ -40,3 +39,14 @@ npm i axios vform
 
 php artisan make:controller API/UserController --api
 php artisan route:list --> untuk memerika route apa saja yang ada pada aplikasi
+
+## Security Issue
+
+1.Pengamanan API kita menggunakan laravel/passport untuk generate api key
+
+1. Installation
+
+-   composer require laravel/passport / composer require laravel/passport:7.5.1 (untuk versi laravel 5.8)
+-   php artisan migrate / php artisan vendor:publish --tag=passport-migrations
+-   insatllation passport --> php artisan passport:install
+-   publish passport compnenets --> php artisan vendor:publish --tag=passport-components

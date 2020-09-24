@@ -28,7 +28,7 @@
                   type="button"
                   class="btn btn-sm btn-primary"
                   data-toggle="modal"
-                  data-target="#modal-create-user"
+                  @click="newModal"
                 >
                   <i class="fas fa-plus-circle"></i> Create New User
                 </button>
@@ -77,11 +77,15 @@
                   </td>
                   <td>{{ user.created_at | myData }}</td>
                   <td>
-                    <a class="text-warning" href="#">
+                    <a class="text-warning" href="#" @click="editModal(user)">
                       <i class="fas fa-pen"></i>
                     </a>
                     |||
-                    <a class="text-danger" href="#">
+                    <a
+                      class="text-danger"
+                      href="#"
+                      @click="deleteUser(user.id)"
+                    >
                       <i class="fas fa-trash"></i>
                     </a>
                   </td>
@@ -107,7 +111,13 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <h5 class="modal-title" v-show="!editMode" id="staticBackdropLabel">
+              Create New User
+            </h5>
+            <h5 class="modal-title" v-show="editMode" id="staticBackdropLabel">
+              Edit User
+            </h5>
+
             <button
               type="button"
               class="close"
@@ -118,7 +128,10 @@
             </button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="createUser" id="form">
+            <form
+              @submit.prevent="editMode ? updateUser() : createUser()"
+              id="form"
+            >
               <div class="form-group">
                 <label>Name</label>
                 <input
@@ -136,9 +149,20 @@
                 <label>Email</label>
                 <input
                   v-model="form.email"
+                  v-show="!editMode"
                   type="email"
                   name="email"
                   class="form-control"
+                  placeholder="Your Email"
+                  :class="{ 'is-invalid': form.errors.has('email') }"
+                />
+                <input
+                  v-model="form.email"
+                  v-show="editMode"
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  readonly
                   placeholder="Your Email"
                   :class="{ 'is-invalid': form.errors.has('email') }"
                 />
@@ -194,7 +218,16 @@
                 >
                   Close
                 </button>
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button
+                  type="submit"
+                  v-show="!editMode"
+                  class="btn btn-primary"
+                >
+                  Create
+                </button>
+                <button type="submit" v-show="editMode" class="btn btn-warning">
+                  Save
+                </button>
               </div>
             </form>
           </div>
@@ -212,6 +245,7 @@ export default {
     return {
       users: {},
       form: new Form({
+        id: "",
         name: "",
         email: "",
         password: "",
@@ -221,9 +255,63 @@ export default {
       }),
       message: "",
       isActive: false,
+      editMode: false,
     };
   },
   methods: {
+    updateUser(id) {
+      //console.log("updating Data");
+      this.$Progress.start();
+      this.form
+        .put("api/user/" + this.form.id)
+        .then(() => {
+          //succes
+          $("#modal-create-user").modal("hide");
+          this.loadData();
+          swal.fire("Updated!", "Your Information Has Updated.", "success");
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
+      this.$Progress.finish();
+    },
+    editModal(user) {
+      $("#form").trigger("reset");
+      $("#modal-create-user").modal("show");
+      this.editMode = true;
+      this.form.fill(user);
+    },
+
+    newModal() {
+      $("#form").trigger("reset");
+      $("#modal-create-user").modal("show");
+    },
+    deleteUser(id) {
+      swal
+        .fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        })
+        .then((result) => {
+          // send request to server
+          this.form
+            .delete("api/user/" + id)
+            .then(() => {
+              if (result.isConfirmed) {
+                swal.fire("Deleted!", "Your file has been deleted.", "success");
+                this.loadData();
+              }
+            })
+            .catch(() => {
+              swal("Failed!", "There was something wronge.", "warning");
+            });
+        });
+    },
     createUser() {
       this.$Progress.start();
       this.form
@@ -235,8 +323,8 @@ export default {
           this.loadData();
         })
         .finally(() => {
-          $("#modal-create-user").modal("hide");
           $("#form").trigger("reset");
+          $("#modal-create-user").modal("hide");
         });
       this.$Progress.finish();
       toast.fire({
