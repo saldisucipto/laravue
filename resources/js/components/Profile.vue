@@ -68,11 +68,13 @@
                       <input
                         type="email"
                         class="form-control"
+                        :class="{ 'is-invalid' : form.errors.has('name')}"
                         id="inputName"
                         placeholder="Name"
                         name="name"
                         v-model="form.name"
                       />
+                      <has-error :form="form" field="name"></has-error>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -81,11 +83,14 @@
                       <input
                         type="email"
                         v-model="form.email"
+                        :class="{ 'is-invalid' : form.errors.has('email')}"
                         class="form-control"
                         id="inputEmail"
                         name="email"
                         placeholder="Email"
+                        readonly
                       />
+                      <has-error :form="form" field="email"></has-error>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -115,16 +120,18 @@
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="password" class="col-sm-2 col-form-label">User Password</label>
+                    <label for="password" class="col-sm-2 col-form-label">Update Password</label>
                     <div class="col-sm-10">
                       <input
                         v-model="form.password"
                         type="password"
                         name="password"
+                        :class="{ 'is-invalid' : form.errors.has('password')}"
                         class="form-control"
                         id="password"
                         placeholder="password"
                       />
+                      <has-error :form="form" field="password"></has-error>
                     </div>
                   </div>
                   <div class="form-group row">

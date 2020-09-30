@@ -137,6 +137,11 @@ class UserController extends Controller
             Image::make($request->photo)->save(public_path('img/profile/'). $name);
             //return ['message' => 'Success'];
             $request->merge(['photo' => $name]);
+
+            $userPhoto = public_path('img/profile/').$curentPhoto;
+            if(\file_exists($userPhoto)){
+                @\unlink($userPhoto);
+            }
         }
         if($request->password){
             $passowrdmake = Hash::make($request['password']);
