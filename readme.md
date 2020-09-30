@@ -50,3 +50,11 @@ php artisan route:list --> untuk memerika route apa saja yang ada pada aplikasi
 -   php artisan migrate / php artisan vendor:publish --tag=passport-migrations
 -   insatllation passport --> php artisan passport:install
 -   publish passport compnenets --> php artisan vendor:publish --tag=passport-components
+
+## Image Handling Library
+
+1. Intervention Image
+
+-   installation -> php composer.phar require intervention/image
+-   publish servis ke laravel :
+    php artisan vendor:publish --provider="Intervention\Image\ImageServiceProviderLaravel5"

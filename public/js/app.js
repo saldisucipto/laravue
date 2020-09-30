@@ -2147,17 +2147,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 window.form = vform__WEBPACK_IMPORTED_MODULE_0__["Form"];
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2171,19 +2160,59 @@ window.form = vform__WEBPACK_IMPORTED_MODULE_0__["Form"];
         password: "",
         type: "",
         bio: "",
-        photo: "",
-        data: ""
+        photo: ""
       })
     };
   },
   created: function created() {
-    var _this = this;
-
     // get method with axios
-    axios.get("api/profile").then(function (_ref) {
-      var data = _ref.data;
-      return _this.form.fill(data);
-    });
+    this.loadData();
+  },
+  methods: {
+    updateProfile: function updateProfile(e) {
+      var _this = this;
+
+      //console.log("uploading");
+      var file = e.target.files[0]; // console.log(file);
+
+      var reader = new FileReader();
+
+      if (file["size"] < 2111775) {
+        reader.onloadend = function (file) {
+          // console.log("RESULT", reader.result);
+          _this.form.photo = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        swal.fire({
+          icon: "error",
+          title: "Ooopss..",
+          text: "Ukuran Foto Anda Terlalu Besar.."
+        });
+        file = "";
+      }
+    },
+    updateInfo: function updateInfo() {
+      var _this2 = this;
+
+      this.$Progress.start();
+      this.form.put("api/profile").then(function () {
+        _this2.loadData();
+
+        _this2.$Progress.finish();
+      })["catch"](function () {
+        _this2.$Progress.fail();
+      });
+    },
+    loadData: function loadData() {
+      var _this3 = this;
+
+      axios.get("api/profile").then(function (_ref) {
+        var data = _ref.data;
+        return _this3.form.fill(data);
+      });
+    }
   }
 });
 
@@ -65745,7 +65774,8 @@ var render = function() {
                           attrs: {
                             type: "email",
                             id: "inputName",
-                            placeholder: "Name"
+                            placeholder: "Name",
+                            name: "name"
                           },
                           domProps: { value: _vm.form.name },
                           on: {
@@ -65784,6 +65814,7 @@ var render = function() {
                           attrs: {
                             type: "email",
                             id: "inputEmail",
+                            name: "email",
                             placeholder: "Email"
                           },
                           domProps: { value: _vm.form.email },
@@ -65821,6 +65852,7 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           attrs: {
+                            name: "bio",
                             id: "inputExperience",
                             placeholder: "Experience"
                           },
@@ -65861,6 +65893,7 @@ var render = function() {
                           attrs: {
                             readonly: "",
                             type: "text",
+                            name: "type",
                             id: "inputSkills",
                             placeholder: "Skills"
                           },
@@ -65884,7 +65917,7 @@ var render = function() {
                           staticClass: "col-sm-2 col-form-label",
                           attrs: { for: "password" }
                         },
-                        [_vm._v("User Type")]
+                        [_vm._v("User Password")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-sm-10" }, [
@@ -65900,6 +65933,7 @@ var render = function() {
                           staticClass: "form-control",
                           attrs: {
                             type: "password",
+                            name: "password",
                             id: "password",
                             placeholder: "password"
                           },
@@ -65920,9 +65954,37 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _vm._m(2),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("label", { staticClass: "col-sm-2 col-form-label" }, [
+                        _vm._v("Profile Picture")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("input", {
+                          attrs: { type: "file", name: "photo", id: "photo" },
+                          on: { change: _vm.updateProfile }
+                        })
+                      ])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(3)
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("div", { staticClass: "offset-sm-2 col-sm-10" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "submit" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.updateInfo($event)
+                              }
+                            }
+                          },
+                          [_vm._v("Submit")]
+                        )
+                      ])
+                    ])
                   ])
                 ]
               )
@@ -66031,36 +66093,6 @@ var staticRenderFns = [
             [_vm._v("Settings")]
           )
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "offset-sm-2 col-sm-10" }, [
-        _c("div", { staticClass: "checkbox" }, [
-          _c("label", [
-            _c("input", { attrs: { type: "checkbox" } }),
-            _vm._v(" I agree to the\n                        "),
-            _c("a", { attrs: { href: "#" } }, [_vm._v("terms and conditions")])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "offset-sm-2 col-sm-10" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-danger", attrs: { type: "submit" } },
-          [_vm._v("\n                      Submit\n                    ")]
-        )
       ])
     ])
   }

@@ -5,7 +5,11 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Image;
+use Intervention\Image\ImageManager;
 use App\User;
+use Validator;
+use Illuminate\Support\Facades\DB;
 
 
 class UserController extends Controller
@@ -44,9 +48,9 @@ class UserController extends Controller
         // return ['message' => 'I Have Your Data'];
         // create user 
         $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
+            'name' => 'required|string|max:191',
+            'email' => 'required|string|email|max:191|unique:user,email,'.$user->id,
+            'password' => 'required|min:6'
         ]);
         
 
@@ -115,6 +119,33 @@ class UserController extends Controller
     // profile controller 
     public function profile(){
         return \auth('api')->user();
+    }
+
+    public function updateProfile(Request $request){
+        $users = auth('api')->user();
+
+        $this->validate($request, [
+            'name' => 'required|string|max:191',
+            'email' => 'required|string|email|max:191|unique:users,email,'.$users->id,
+            'bio' => 'required|string',
+            'password' => 'sometimes|min:6'
+        ]);
+
+        $curentPhoto = $users->photo;
+        if($request->photo != $curentPhoto ){
+            $name = time().'.'.explode('/', \explode(':', substr($request->photo, 0, strpos($request->photo, ';')))[1])[1];
+            Image::make($request->photo)->save(public_path('img/profile/'). $name);
+            //return ['message' => 'Success'];
+            $request->merge(['photo' => $name]);
+        }
+        if($request->password){
+            $passowrdmake = Hash::make($request['password']);
+            $users->update(['password' => $passowrdmake]);
+            return ['message' => 'Success Password Dirubah'];
+        }
+
+      $users->update($request->all());
+      return ['message' => 'Success'];
 
     }
 }
