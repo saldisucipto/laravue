@@ -8,11 +8,11 @@
             class="widget-user-header bg-info"
             style="background-image: url('./img/usr-cover.jpg')"
           >
-            <h3 class="widget-user-username">Alexander Pierce</h3>
-            <h5 class="widget-user-desc">Founder &amp; CEO</h5>
+            <h3 class="widget-user-username">{{form.name}}</h3>
+            <h5 class="widget-user-desc">{{form.type}}</h5>
           </div>
           <div class="widget-user-image">
-            <img class="img-circle elevation-2" src="#" alt="User Avatar" />
+            <img class="img-circle elevation-2" :src="getProfilePhoto()" alt="User Avatar" />
           </div>
           <div class="card-footer">
             <div class="row">
@@ -214,14 +214,30 @@ export default {
         .put("api/profile")
         .then(() => {
           this.loadData();
+          swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.file = "";
           this.$Progress.finish();
         })
         .catch(() => {
+          swal.fire({
+            icon: "error",
+            title: "Ooopss..",
+            text: "Harus ada isi pada field ini",
+          });
           this.$Progress.fail();
         });
     },
     loadData() {
       axios.get("api/profile").then(({ data }) => this.form.fill(data));
+    },
+    getProfilePhoto() {
+      return "img/profile/" + this.form.photo;
     },
   },
 };
