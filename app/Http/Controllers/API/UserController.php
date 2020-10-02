@@ -33,6 +33,8 @@ class UserController extends Controller
     {
         //get data 
         // $data = User::get()->paginate(10);
+        // ACL Protected Controller
+        $this->authorize('isAdmin');
         return User::orderBy('id', 'ASC')->paginate(10);
     }
 
