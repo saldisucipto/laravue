@@ -16,6 +16,11 @@ import Profile from "./components/Profile.vue";
 import User from "./components/User.vue";
 import Developer from "./components/Developer.vue";
 
+// Gate js 
+import Gate from './Gate';
+
+Vue.prototype.$gate = new Gate(window.user);
+
 
 // pasport components 
 Vue.component(

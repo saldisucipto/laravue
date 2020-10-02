@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" v-if="$gate.isAdmin()">
       <div class="col-12">
         <div
           class="alert alert-success alert-dismissible fade"
@@ -111,27 +111,15 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" v-show="!editMode" id="staticBackdropLabel">
-              Create New User
-            </h5>
-            <h5 class="modal-title" v-show="editMode" id="staticBackdropLabel">
-              Edit User
-            </h5>
+            <h5 class="modal-title" v-show="!editMode" id="staticBackdropLabel">Create New User</h5>
+            <h5 class="modal-title" v-show="editMode" id="staticBackdropLabel">Edit User</h5>
 
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <form
-              @submit.prevent="editMode ? updateUser() : createUser()"
-              id="form"
-            >
+            <form @submit.prevent="editMode ? updateUser() : createUser()" id="form">
               <div class="form-group">
                 <label>Name</label>
                 <input
@@ -211,23 +199,9 @@
                 <has-error :form="form" field="password"></has-error>
               </div>
               <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button
-                  type="submit"
-                  v-show="!editMode"
-                  class="btn btn-primary"
-                >
-                  Create
-                </button>
-                <button type="submit" v-show="editMode" class="btn btn-warning">
-                  Save
-                </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" v-show="!editMode" class="btn btn-primary">Create</button>
+                <button type="submit" v-show="editMode" class="btn btn-warning">Save</button>
               </div>
             </form>
           </div>
@@ -334,7 +308,9 @@ export default {
     },
 
     loadData() {
-      axios.get("api/user").then(({ data }) => (this.users = data.data));
+      if (this.$gate.isAdmin()) {
+        axios.get("api/user").then(({ data }) => (this.users = data.data));
+      }
     },
   },
   created() {
