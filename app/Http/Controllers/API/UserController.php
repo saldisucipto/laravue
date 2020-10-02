@@ -34,8 +34,14 @@ class UserController extends Controller
         //get data 
         // $data = User::get()->paginate(10);
         // ACL Protected Controller
-        $this->authorize('isAdmin');
-        return User::orderBy('id', 'ASC')->paginate(10);
+        // $this->authorize('isAdmin');
+        // return User::orderBy('id', 'ASC')->paginate(10);
+
+        // controller when user & author have same authorize
+        if(\Gate::allows('isAdmin') || \Gate::allows('isAuthor')){
+            return User::latest()->paginate(1);
+        }
+
     }
 
     /**

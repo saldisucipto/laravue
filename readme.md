@@ -58,3 +58,7 @@ php artisan route:list --> untuk memerika route apa saja yang ada pada aplikasi
 -   installation -> php composer.phar require intervention/image
 -   publish servis ke laravel :
     php artisan vendor:publish --provider="Intervention\Image\ImageServiceProviderLaravel5"
+
+## Paginations Vue
+
+npm install laravel-vue-pagination

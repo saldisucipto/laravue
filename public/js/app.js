@@ -1935,6 +1935,126 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Dashboard",
   mounted: function mounted() {
@@ -2677,6 +2797,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 window.form = vform__WEBPACK_IMPORTED_MODULE_0__["Form"];
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2699,8 +2822,16 @@ window.form = vform__WEBPACK_IMPORTED_MODULE_0__["Form"];
     };
   },
   methods: {
-    updateUser: function updateUser(id) {
+    getResults: function getResults() {
       var _this = this;
+
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      axios.get("api/user?page=" + page).then(function (response) {
+        _this.users = response.data;
+      });
+    },
+    updateUser: function updateUser(id) {
+      var _this2 = this;
 
       //console.log("updating Data");
       this.$Progress.start();
@@ -2708,11 +2839,11 @@ window.form = vform__WEBPACK_IMPORTED_MODULE_0__["Form"];
         //succes
         $("#modal-create-user").modal("hide");
 
-        _this.loadData();
+        _this2.loadData();
 
         swal.fire("Updated!", "Your Information Has Updated.", "success");
       })["catch"](function () {
-        _this.$Progress.fail();
+        _this2.$Progress.fail();
       });
       this.$Progress.finish();
     },
@@ -2727,7 +2858,7 @@ window.form = vform__WEBPACK_IMPORTED_MODULE_0__["Form"];
       $("#modal-create-user").modal("show");
     },
     deleteUser: function deleteUser(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       swal.fire({
         title: "Are you sure?",
@@ -2739,11 +2870,11 @@ window.form = vform__WEBPACK_IMPORTED_MODULE_0__["Form"];
         confirmButtonText: "Yes, delete it!"
       }).then(function (result) {
         // send request to server
-        _this2.form["delete"]("api/user/" + id).then(function () {
+        _this3.form["delete"]("api/user/" + id).then(function () {
           if (result.isConfirmed) {
             swal.fire("Deleted!", "Your file has been deleted.", "success");
 
-            _this2.loadData();
+            _this3.loadData();
           }
         })["catch"](function () {
           swal("Failed!", "There was something wronge.", "warning");
@@ -2751,15 +2882,15 @@ window.form = vform__WEBPACK_IMPORTED_MODULE_0__["Form"];
       });
     },
     createUser: function createUser() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.$Progress.start();
       this.form.post("api/user").then(function (resp) {
         var item = resp.data;
-        _this3.message = resp.data.message;
-        _this3.isActive = false;
+        _this4.message = resp.data.message;
+        _this4.isActive = false;
 
-        _this3.loadData();
+        _this4.loadData();
       })["finally"](function () {
         $("#form").trigger("reset");
         $("#modal-create-user").modal("hide");
@@ -2771,12 +2902,12 @@ window.form = vform__WEBPACK_IMPORTED_MODULE_0__["Form"];
       });
     },
     loadData: function loadData() {
-      var _this4 = this;
+      var _this5 = this;
 
       if (this.$gate.isAdmin()) {
         axios.get("api/user").then(function (_ref) {
           var data = _ref.data;
-          return _this4.users = data.data;
+          return _this5.users = data;
         });
       }
     }
@@ -19063,6 +19194,599 @@ if ( typeof noGlobal === "undefined" ) {
 return jQuery;
 } );
 
+
+/***/ }),
+
+/***/ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "fb15");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "f6fd":
+/***/ (function(module, exports) {
+
+// document.currentScript polyfill by Adam Miller
+
+// MIT license
+
+(function(document){
+  var currentScript = "currentScript",
+      scripts = document.getElementsByTagName('script'); // Live NodeList collection
+
+  // If browser needs currentScript polyfill, add get currentScript() to the document object
+  if (!(currentScript in document)) {
+    Object.defineProperty(document, currentScript, {
+      get: function(){
+
+        // IE 6-10 supports script readyState
+        // IE 10+ support stack trace
+        try { throw new Error(); }
+        catch (err) {
+
+          // Find the second match for the "at" string to get file src url from stack.
+          // Specifically works with the format of stack traces in IE.
+          var i, res = ((/.*at [^\(]*\((.*):.+:.+\)$/ig).exec(err.stack) || [false])[1];
+
+          // For all scripts on the page, if src matches or if ready state is interactive, return the script tag
+          for(i in scripts){
+            if(scripts[i].src == res || scripts[i].readyState == "interactive"){
+              return scripts[i];
+            }
+          }
+
+          // If no match, return null
+          return null;
+        }
+      }
+    });
+  }
+})(document);
+
+
+/***/ }),
+
+/***/ "fb15":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
+// This file is imported into lib/wc client bundles.
+
+if (typeof window !== 'undefined') {
+  if (true) {
+    __webpack_require__("f6fd")
+  }
+
+  var i
+  if ((i = window.document.currentScript) && (i = i.src.match(/(.+\/)[^/]+\.js(\?.*)?$/))) {
+    __webpack_require__.p = i[1] // eslint-disable-line
+  }
+}
+
+// Indicate to webpack that this file can be concatenated
+/* harmony default export */ var setPublicPath = (null);
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"604a59b1-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/LaravelVuePagination.vue?vue&type=template&id=7f71b5a7&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('renderless-laravel-vue-pagination',{attrs:{"data":_vm.data,"limit":_vm.limit,"show-disabled":_vm.showDisabled,"size":_vm.size,"align":_vm.align},on:{"pagination-change-page":_vm.onPaginationChangePage},scopedSlots:_vm._u([{key:"default",fn:function(ref){
+var data = ref.data;
+var limit = ref.limit;
+var showDisabled = ref.showDisabled;
+var size = ref.size;
+var align = ref.align;
+var computed = ref.computed;
+var prevButtonEvents = ref.prevButtonEvents;
+var nextButtonEvents = ref.nextButtonEvents;
+var pageButtonEvents = ref.pageButtonEvents;
+return (computed.total > computed.perPage)?_c('ul',{staticClass:"pagination",class:{
+            'pagination-sm': size == 'small',
+            'pagination-lg': size == 'large',
+            'justify-content-center': align == 'center',
+            'justify-content-end': align == 'right'
+        }},[(computed.prevPageUrl || showDisabled)?_c('li',{staticClass:"page-item pagination-prev-nav",class:{'disabled': !computed.prevPageUrl}},[_c('a',_vm._g({staticClass:"page-link",attrs:{"href":"#","aria-label":"Previous","tabindex":!computed.prevPageUrl && -1}},prevButtonEvents),[_vm._t("prev-nav",[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("«")]),_c('span',{staticClass:"sr-only"},[_vm._v("Previous")])])],2)]):_vm._e(),_vm._l((computed.pageRange),function(page,key){return _c('li',{key:key,staticClass:"page-item pagination-page-nav",class:{ 'active': page == computed.currentPage }},[_c('a',_vm._g({staticClass:"page-link",attrs:{"href":"#"}},pageButtonEvents(page)),[_vm._v("\n                "+_vm._s(page)+"\n                "),(page == computed.currentPage)?_c('span',{staticClass:"sr-only"},[_vm._v("(current)")]):_vm._e()])])}),(computed.nextPageUrl || showDisabled)?_c('li',{staticClass:"page-item pagination-next-nav",class:{'disabled': !computed.nextPageUrl}},[_c('a',_vm._g({staticClass:"page-link",attrs:{"href":"#","aria-label":"Next","tabindex":!computed.nextPageUrl && -1}},nextButtonEvents),[_vm._t("next-nav",[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v("»")]),_c('span',{staticClass:"sr-only"},[_vm._v("Next")])])],2)]):_vm._e()],2):_vm._e()}}],null,true)})}
+var staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/LaravelVuePagination.vue?vue&type=template&id=7f71b5a7&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/RenderlessLaravelVuePagination.vue?vue&type=script&lang=js&
+/* harmony default export */ var RenderlessLaravelVuePaginationvue_type_script_lang_js_ = ({
+  props: {
+    data: {
+      type: Object,
+      default: function _default() {}
+    },
+    limit: {
+      type: Number,
+      default: 0
+    },
+    showDisabled: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      type: String,
+      default: 'default',
+      validator: function validator(value) {
+        return ['small', 'default', 'large'].indexOf(value) !== -1;
+      }
+    },
+    align: {
+      type: String,
+      default: 'left',
+      validator: function validator(value) {
+        return ['left', 'center', 'right'].indexOf(value) !== -1;
+      }
+    }
+  },
+  computed: {
+    isApiResource: function isApiResource() {
+      return !!this.data.meta;
+    },
+    currentPage: function currentPage() {
+      return this.isApiResource ? this.data.meta.current_page : this.data.current_page;
+    },
+    firstPageUrl: function firstPageUrl() {
+      return this.isApiResource ? this.data.links.first : null;
+    },
+    from: function from() {
+      return this.isApiResource ? this.data.meta.from : this.data.from;
+    },
+    lastPage: function lastPage() {
+      return this.isApiResource ? this.data.meta.last_page : this.data.last_page;
+    },
+    lastPageUrl: function lastPageUrl() {
+      return this.isApiResource ? this.data.links.last : null;
+    },
+    nextPageUrl: function nextPageUrl() {
+      return this.isApiResource ? this.data.links.next : this.data.next_page_url;
+    },
+    perPage: function perPage() {
+      return this.isApiResource ? this.data.meta.per_page : this.data.per_page;
+    },
+    prevPageUrl: function prevPageUrl() {
+      return this.isApiResource ? this.data.links.prev : this.data.prev_page_url;
+    },
+    to: function to() {
+      return this.isApiResource ? this.data.meta.to : this.data.to;
+    },
+    total: function total() {
+      return this.isApiResource ? this.data.meta.total : this.data.total;
+    },
+    pageRange: function pageRange() {
+      if (this.limit === -1) {
+        return 0;
+      }
+
+      if (this.limit === 0) {
+        return this.lastPage;
+      }
+
+      var current = this.currentPage;
+      var last = this.lastPage;
+      var delta = this.limit;
+      var left = current - delta;
+      var right = current + delta + 1;
+      var range = [];
+      var pages = [];
+      var l;
+
+      for (var i = 1; i <= last; i++) {
+        if (i === 1 || i === last || i >= left && i < right) {
+          range.push(i);
+        }
+      }
+
+      range.forEach(function (i) {
+        if (l) {
+          if (i - l === 2) {
+            pages.push(l + 1);
+          } else if (i - l !== 1) {
+            pages.push('...');
+          }
+        }
+
+        pages.push(i);
+        l = i;
+      });
+      return pages;
+    }
+  },
+  methods: {
+    previousPage: function previousPage() {
+      this.selectPage(this.currentPage - 1);
+    },
+    nextPage: function nextPage() {
+      this.selectPage(this.currentPage + 1);
+    },
+    selectPage: function selectPage(page) {
+      if (page === '...') {
+        return;
+      }
+
+      this.$emit('pagination-change-page', page);
+    }
+  },
+  render: function render() {
+    var _this = this;
+
+    return this.$scopedSlots.default({
+      data: this.data,
+      limit: this.limit,
+      showDisabled: this.showDisabled,
+      size: this.size,
+      align: this.align,
+      computed: {
+        isApiResource: this.isApiResource,
+        currentPage: this.currentPage,
+        firstPageUrl: this.firstPageUrl,
+        from: this.from,
+        lastPage: this.lastPage,
+        lastPageUrl: this.lastPageUrl,
+        nextPageUrl: this.nextPageUrl,
+        perPage: this.perPage,
+        prevPageUrl: this.prevPageUrl,
+        to: this.to,
+        total: this.total,
+        pageRange: this.pageRange
+      },
+      prevButtonEvents: {
+        click: function click(e) {
+          e.preventDefault();
+
+          _this.previousPage();
+        }
+      },
+      nextButtonEvents: {
+        click: function click(e) {
+          e.preventDefault();
+
+          _this.nextPage();
+        }
+      },
+      pageButtonEvents: function pageButtonEvents(page) {
+        return {
+          click: function click(e) {
+            e.preventDefault();
+
+            _this.selectPage(page);
+          }
+        };
+      }
+    });
+  }
+});
+// CONCATENATED MODULE: ./src/RenderlessLaravelVuePagination.vue?vue&type=script&lang=js&
+ /* harmony default export */ var src_RenderlessLaravelVuePaginationvue_type_script_lang_js_ = (RenderlessLaravelVuePaginationvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+// CONCATENATED MODULE: ./src/RenderlessLaravelVuePagination.vue
+var RenderlessLaravelVuePagination_render, RenderlessLaravelVuePagination_staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = normalizeComponent(
+  src_RenderlessLaravelVuePaginationvue_type_script_lang_js_,
+  RenderlessLaravelVuePagination_render,
+  RenderlessLaravelVuePagination_staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var RenderlessLaravelVuePagination = (component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/LaravelVuePagination.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ var LaravelVuePaginationvue_type_script_lang_js_ = ({
+  props: {
+    data: {
+      type: Object,
+      default: function _default() {}
+    },
+    limit: {
+      type: Number,
+      default: 0
+    },
+    showDisabled: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      type: String,
+      default: 'default',
+      validator: function validator(value) {
+        return ['small', 'default', 'large'].indexOf(value) !== -1;
+      }
+    },
+    align: {
+      type: String,
+      default: 'left',
+      validator: function validator(value) {
+        return ['left', 'center', 'right'].indexOf(value) !== -1;
+      }
+    }
+  },
+  methods: {
+    onPaginationChangePage: function onPaginationChangePage(page) {
+      this.$emit('pagination-change-page', page);
+    }
+  },
+  components: {
+    RenderlessLaravelVuePagination: RenderlessLaravelVuePagination
+  }
+});
+// CONCATENATED MODULE: ./src/LaravelVuePagination.vue?vue&type=script&lang=js&
+ /* harmony default export */ var src_LaravelVuePaginationvue_type_script_lang_js_ = (LaravelVuePaginationvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/LaravelVuePagination.vue
+
+
+
+
+
+/* normalize component */
+
+var LaravelVuePagination_component = normalizeComponent(
+  src_LaravelVuePaginationvue_type_script_lang_js_,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var LaravelVuePagination = (LaravelVuePagination_component.exports);
+// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
+
+
+/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (LaravelVuePagination);
+
+
+
+/***/ })
+
+/******/ })["default"];
+//# sourceMappingURL=laravel-vue-pagination.common.js.map
 
 /***/ }),
 
@@ -65864,8 +66588,250 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [_c("not-found")], 1)
+    _c("div", { staticClass: "row justify-content-center pt-5" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c(
+          "svg",
+          {
+            staticClass: "img-fluid",
+            attrs: {
+              id: "b0932816-01f4-4b2f-9325-988e94753b3b",
+              "data-name": "Layer 1",
+              xmlns: "http://www.w3.org/2000/svg",
+              width: "699.24724",
+              height: "386.75431",
+              viewBox: "0 0 699.24724 386.75431"
+            }
+          },
+          [
+            _c("path", {
+              attrs: {
+                d:
+                  "M736,678.63184H351a8.50982,8.50982,0,0,1-8.5-8.5V446a8.50951,8.50951,0,0,1,8.5-8.5H736a8.50982,8.50982,0,0,1,8.5,8.5V670.13184A8.51014,8.51014,0,0,1,736,678.63184Z",
+                transform: "translate(-291 -347.24569)",
+                fill: "#e6e6e6"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M760,710H327V423.5a9.51081,9.51081,0,0,1,9.5-9.5h414a9.51081,9.51081,0,0,1,9.5,9.5Zm-431-2H758V423.5a7.5082,7.5082,0,0,0-7.5-7.5h-414a7.5082,7.5082,0,0,0-7.5,7.5Z",
+                transform: "translate(-291 -347.24569)",
+                fill: "#ccc"
+              }
+            }),
+            _vm._v(" "),
+            _c("circle", {
+              attrs: { cx: "252.5", cy: "79.25431", r: "4", fill: "#e6e6e6" }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M640,631.06641H447a8.50982,8.50982,0,0,1-8.5-8.5v-129a8.50981,8.50981,0,0,1,8.5-8.5H640a8.51013,8.51013,0,0,1,8.5,8.5v129A8.51014,8.51014,0,0,1,640,631.06641Z",
+                transform: "translate(-291 -347.24569)",
+                fill: "#fff"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M478.75,540.06592a8,8,0,1,1,8-8A8.00917,8.00917,0,0,1,478.75,540.06592Z",
+                transform: "translate(-291 -347.24569)",
+                fill: "#ccc"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M478.75,566.06592a8,8,0,1,1,8-8A8.00917,8.00917,0,0,1,478.75,566.06592Z",
+                transform: "translate(-291 -347.24569)",
+                fill: "#6c63ff"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M478.75,592.06592a8,8,0,1,1,8-8A8.00917,8.00917,0,0,1,478.75,592.06592Z",
+                transform: "translate(-291 -347.24569)",
+                fill: "#6c63ff"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M516.75,525.56592a6.5,6.5,0,0,0,0,13h93a6.5,6.5,0,0,0,0-13Z",
+                transform: "translate(-291 -347.24569)",
+                fill: "#ccc"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M516.75,551.56592a6.5,6.5,0,0,0,0,13h93a6.5,6.5,0,0,0,0-13Z",
+                transform: "translate(-291 -347.24569)",
+                fill: "#6c63ff"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M516.75,577.56592a6.5,6.5,0,0,0,0,13h93a6.5,6.5,0,0,0,0-13Z",
+                transform: "translate(-291 -347.24569)",
+                fill: "#6c63ff"
+              }
+            }),
+            _vm._v(" "),
+            _c("polygon", {
+              attrs: {
+                points:
+                  "663.288 375.328 651.03 375.122 645.991 327.743 664.083 328.047 663.288 375.328",
+                fill: "#ffb8b8"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M933.20767,718.79047h23.64388a0,0,0,0,1,0,0v14.88687a0,0,0,0,1,0,0H918.32081a0,0,0,0,1,0,0v0A14.88685,14.88685,0,0,1,933.20767,718.79047Z",
+                transform: "translate(-278.66498 -362.89709) rotate(0.96277)",
+                fill: "#2f2e41"
+              }
+            }),
+            _vm._v(" "),
+            _c("polygon", {
+              attrs: {
+                points:
+                  "541.641 375.216 530.277 370.616 542.612 324.594 559.384 331.384 541.641 375.216",
+                fill: "#ffb8b8"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M811.361,712.42822H835.0049a0,0,0,0,1,0,0V727.3151a0,0,0,0,1,0,0H796.47418a0,0,0,0,1,0,0v0A14.88687,14.88687,0,0,1,811.361,712.42822Z",
+                transform: "translate(38.7119 -600.73077) rotate(22.03793)",
+                fill: "#2f2e41"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M873.61445,545.1712l-36,95-15,66,16,8,73-142,27,142.5h16s7.316-169.01457-3.342-182.25729Z",
+                transform: "translate(-291 -347.24569)",
+                fill: "#2f2e41"
+              }
+            }),
+            _vm._v(" "),
+            _c("circle", {
+              attrs: {
+                cx: "537.98425",
+                cy: "273.76612",
+                r: "28.17188",
+                fill: "#6c63ff"
+              }
+            }),
+            _vm._v(" "),
+            _c("polygon", {
+              attrs: {
+                points:
+                  "535.636 286.223 526.695 274.726 531.895 270.682 536.128 276.125 550.43 261.028 555.213 265.559 535.636 286.223",
+                fill: "#fff"
+              }
+            }),
+            _vm._v(" "),
+            _c("circle", {
+              attrs: {
+                cx: "600.11445",
+                cy: "33.42551",
+                r: "33",
+                fill: "#2f2e41"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M845.06051,605.22967a10.74264,10.74264,0,0,0,3.84155-16.01842l25.033-138.54-23.36007-.30785L833.191,587.36152a10.8009,10.8009,0,0,0,11.86954,17.86815Z",
+                transform: "translate(-291 -347.24569)",
+                fill: "#ffb8b8"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M988.50931,578.17023a10.74528,10.74528,0,0,0-5.16594-15.93969l-44.701-108.58a19.7819,19.7819,0,0,0-28.73525-9.27015h0l59.20611,124.76112a10.80077,10.80077,0,0,0,19.39612,9.02868Z",
+                transform: "translate(-291 -347.24569)",
+                fill: "#ffb8b8"
+              }
+            }),
+            _vm._v(" "),
+            _c("circle", {
+              attrs: {
+                cx: "600.76799",
+                cy: "45.85858",
+                r: "24.56103",
+                fill: "#ffb8b8"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M861.90227,431.93849c14.16614-5.89755,38.62325-11.72619,65.78076.97762a24.87158,24.87158,0,0,1,13.31114,15.38724l11.62028,38.86785-15,15,14,31s-53.5,32.5-77.5,12.5l-14.5-51.5-19-5,6.482-38.51076A24.68767,24.68767,0,0,1,861.90227,431.93849Z",
+                transform: "translate(-291 -347.24569)",
+                fill: "#ccc"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M868.79617,374.94113a73.04115,73.04115,0,0,0,31.59919,10.4119l-3.33084-3.991a24.47775,24.47775,0,0,0,7.5611,1.50143,8.2807,8.2807,0,0,0,6.74954-3.15918,7.70232,7.70232,0,0,0,.51556-7.115,14.58851,14.58851,0,0,0-4.58936-5.7385,27.32287,27.32287,0,0,0-25.43066-4.54493,16.32976,16.32976,0,0,0-7.59543,4.87221,9.23579,9.23579,0,0,0-1.86255,8.56086",
+                transform: "translate(-291 -347.24569)",
+                fill: "#2f2e41"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M864.20247,353.08668c-.39941-4.2-5.54465-6.78569-9.56833-5.517s-6.66535,5.32011-7.46387,9.4628a13.575,13.575,0,0,0,1.83057,10.24843,9.3394,9.3394,0,0,0,9.25733,4.0107c3.97942-.84823,6.73641-4.73395,7.52526-8.72557s.00565-8.10694-.77654-12.09988",
+                transform: "translate(-291 -347.24569)",
+                fill: "#2f2e41"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M932.20247,355.08668c-.39941-4.2-5.54465-6.78569-9.56833-5.517s-6.66535,5.32011-7.46387,9.4628a13.575,13.575,0,0,0,1.83057,10.24843,9.3394,9.3394,0,0,0,9.25733,4.0107c3.97942-.84823,6.73641-4.73395,7.52526-8.72557s.00565-8.10694-.77654-12.09988",
+                transform: "translate(-291 -347.24569)",
+                fill: "#2f2e41"
+              }
+            }),
+            _vm._v(" "),
+            _c("path", {
+              attrs: {
+                d:
+                  "M767.50006,697H750v-3a4,4,0,0,0-4-4H725a4,4,0,0,0-4,4v3h-3v-3a4,4,0,0,0-4-4H693a4,4,0,0,0-4,4v3h-3v-3a4,4,0,0,0-4-4H661a4,4,0,0,0-4,4v3h-3v-3a4,4,0,0,0-4-4H629a4,4,0,0,0-4,4v3h-3v-3a4,4,0,0,0-4-4H597a4,4,0,0,0-4,4v3h-3v-3a4,4,0,0,0-4-4H565a4,4,0,0,0-4,4v3h-3v-3a4,4,0,0,0-4-4H533a4,4,0,0,0-4,4v3h-3v-3a4,4,0,0,0-4-4H501a4,4,0,0,0-4,4v3h-3v-3a4,4,0,0,0-4-4H469a4,4,0,0,0-4,4v3h-3v-3a4,4,0,0,0-4-4H437a4,4,0,0,0-4,4v3h-3v-3a4,4,0,0,0-4-4H405a4,4,0,0,0-4,4v3h-3v-3a4,4,0,0,0-4-4H373a4,4,0,0,0-4,4v3h-3v-3a4,4,0,0,0-4-4H341a4,4,0,0,0-4,4v3H319.49994A28.49994,28.49994,0,0,0,291,725.49994V725.5a8.5,8.5,0,0,0,8.5,8.5h488a8.5,8.5,0,0,0,8.5-8.5v-.00006A28.49994,28.49994,0,0,0,767.50006,697Z",
+                transform: "translate(-291 -347.24569)",
+                fill: "#3f3d56"
+              }
+            })
+          ]
+        )
+      ])
     ])
   ])
 }
@@ -66810,7 +67776,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "tbody",
-                    _vm._l(_vm.users, function(user) {
+                    _vm._l(_vm.users.data, function(user) {
                       return _c("tr", { key: user.id }, [
                         _c("td", [_vm._v(_vm._s(user.id))]),
                         _vm._v(" "),
@@ -66862,7 +67828,19 @@ var render = function() {
                     0
                   )
                 ])
-              ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "card-footer" },
+                [
+                  _c("pagination", {
+                    attrs: { data: _vm.users },
+                    on: { "pagination-change-page": _vm.getResults }
+                  })
+                ],
+                1
+              )
             ])
           ])
         ])
@@ -83692,6 +84670,13 @@ var Gate = /*#__PURE__*/function () {
     value: function isAuthor() {
       return this.user.type === 'author';
     }
+  }, {
+    key: "isAdminOrAuthor",
+    value: function isAdminOrAuthor() {
+      if (this.user.type === 'admin' || this.user.type === 'author') {
+        return true;
+      }
+    }
   }]);
 
   return Gate;
@@ -83749,7 +84734,9 @@ Vue.prototype.$gate = new _Gate__WEBPACK_IMPORTED_MODULE_9__["default"](window.u
 Vue.component('passport-clients', __webpack_require__(/*! ./components/passport/Clients.vue */ "./resources/js/components/passport/Clients.vue")["default"]);
 Vue.component('passport-authorized-clients', __webpack_require__(/*! ./components/passport/AuthorizedClients.vue */ "./resources/js/components/passport/AuthorizedClients.vue")["default"]);
 Vue.component('passport-personal-access-tokens', __webpack_require__(/*! ./components/passport/PersonalAccessTokens.vue */ "./resources/js/components/passport/PersonalAccessTokens.vue")["default"]);
-Vue.component('not-found', __webpack_require__(/*! ./components/NotFound.vue */ "./resources/js/components/NotFound.vue")["default"]);
+Vue.component('not-found', __webpack_require__(/*! ./components/NotFound.vue */ "./resources/js/components/NotFound.vue")["default"]); // pagintaions 
+
+Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 window.swal = sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a; // example toast with sweat alert
 
 var toast = sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.mixin({

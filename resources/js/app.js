@@ -44,6 +44,10 @@ Vue.component(
 );
 
 
+// pagintaions 
+Vue.component('pagination', require('laravel-vue-pagination'));
+
+
 window.swal = swal
 
 // example toast with sweat alert
