@@ -15,6 +15,7 @@ import Dashboard from "./components/Dashboard.vue";
 import Profile from "./components/Profile.vue";
 import User from "./components/User.vue";
 import Developer from "./components/Developer.vue";
+import NotFound from "./components/NotFound.vue";
 
 // Gate js 
 import Gate from './Gate';
@@ -37,6 +38,11 @@ Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue').default
 );
+Vue.component(
+    'not-found',
+    require('./components/NotFound.vue').default
+);
+
 
 window.swal = swal
 
@@ -97,7 +103,7 @@ let routes = [{
         path: "/developer",
         name: "Developer",
         component: Developer
-    }
+    },
 ];
 
 

@@ -98,6 +98,11 @@
         <!-- /.card -->
       </div>
     </div>
+    <div class="row justify-content-center" v-if="$gate.isUser()">
+      <div class="col-12">
+        <not-found></not-found>
+      </div>
+    </div>
     <!-- Modal -->
     <div
       class="modal fade"
