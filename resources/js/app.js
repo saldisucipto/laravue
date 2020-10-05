@@ -133,10 +133,15 @@ const app = new Vue({
         search: '',
     },
     methods: {
-        searchit() {
-            //console.log("Searching Data");
+        // searchit() {
+        //     //console.log("Searching Data");
+        //     //Fire.$emit('searching');
+        //     // make instance search 2 second 
+
+        // }
+        searchit: _.debounce(() => {
             Fire.$emit('searching');
-        }
+        }, 2000)
     },
 
 });

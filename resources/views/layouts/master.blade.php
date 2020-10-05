@@ -10,7 +10,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>AdminLTE 3 | Starter</title>
+    <title>LaraVue Apps</title>
     <link rel="stylesheet" href="/css/app.css">
 </head>
 
@@ -35,7 +35,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- SEARCH FORM -->
      
             <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" @keyup.enter="searchit" placeholder="Search" v-model="search"
+              <input class="form-control form-control-navbar" type="search" @keyup="searchit" placeholder="Search" v-model="search"
                   aria-label="Search">
               <div class="input-group-append">
                   <button class="btn btn-navbar" type="submit" @click="searchit">
