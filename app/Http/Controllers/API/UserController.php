@@ -39,7 +39,7 @@ class UserController extends Controller
 
         // controller when user & author have same authorize
         if(\Gate::allows('isAdmin') || \Gate::allows('isAuthor')){
-            return User::latest()->paginate(1);
+            return User::latest()->paginate(10);
         }
 
     }
@@ -160,5 +160,15 @@ class UserController extends Controller
       $users->update($request->all());
       return ['message' => 'Success'];
 
+    }
+
+    public function search(){
+        if($search = \Request::get('q')){
+            $users = User::where(function($query) use ($search){
+                $query->where('name', 'LIKE', "%$search%")->orWhere('email', 'LIKE', "%$search%")->orWhere('type', 'LIKE', "%$search%");
+            })->paginate(10);
+        }
+
+        return $users;
     }
 }

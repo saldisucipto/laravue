@@ -2913,6 +2913,14 @@ window.form = vform__WEBPACK_IMPORTED_MODULE_0__["Form"];
     }
   },
   created: function created() {
+    var _this6 = this;
+
+    Fire.$on("searching", function () {
+      var query = _this6.$parent.search;
+      axios.get("api/finduser?q=" + query).then(function (data) {
+        _this6.users = data.data;
+      })["catch"](function () {});
+    });
     this.loadData();
   }
 });
@@ -84751,6 +84759,7 @@ var toast = sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.mixin({
   }
 });
 window.toast = toast;
+window.Fire = new Vue();
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]); // vform
 // deklare vue moment
 
@@ -84799,7 +84808,16 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
 });
 var app = new Vue({
   el: "#app",
-  router: router
+  router: router,
+  data: {
+    search: ''
+  },
+  methods: {
+    searchit: function searchit() {
+      //console.log("Searching Data");
+      Fire.$emit('searching');
+    }
+  }
 });
 
 /***/ }),

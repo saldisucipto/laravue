@@ -26,3 +26,4 @@ Route::apiResources([
 // profile 
 Route::get('profile', 'API\UserController@profile');
 Route::put('profile', 'API\UserController@updateProfile');
+Route::get('finduser', 'API\UserController@search');

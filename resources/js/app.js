@@ -64,6 +64,7 @@ const toast = swal.mixin({
 })
 
 window.toast = toast
+window.Fire = new Vue();
 
 Vue.use(VueRouter);
 // vform
@@ -127,5 +128,15 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: "#app",
-    router
+    router,
+    data: {
+        search: '',
+    },
+    methods: {
+        searchit() {
+            //console.log("Searching Data");
+            Fire.$emit('searching');
+        }
+    },
+
 });
