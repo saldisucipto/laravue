@@ -89,6 +89,10 @@ Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 
 let routes = [{
+        path: "/home",
+        name: "Dashboard",
+        component: Dashboard
+    }, {
         path: "/dashboard",
         name: "Dashboard",
         component: Dashboard
@@ -107,6 +111,11 @@ let routes = [{
         path: "/developer",
         name: "Developer",
         component: Developer
+    },
+    {
+        path: "*",
+        name: "not-found",
+        component: NotFound
     },
 ];
 

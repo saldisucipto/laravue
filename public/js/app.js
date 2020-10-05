@@ -84769,6 +84769,10 @@ window.form = vform__WEBPACK_IMPORTED_MODULE_10__["Form"];
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_10__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_10__["HasError"]);
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_10__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_10__["AlertError"]);
 var routes = [{
+  path: "/home",
+  name: "Dashboard",
+  component: _components_Dashboard_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+}, {
   path: "/dashboard",
   name: "Dashboard",
   component: _components_Dashboard_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
@@ -84784,6 +84788,10 @@ var routes = [{
   path: "/developer",
   name: "Developer",
   component: _components_Developer_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+}, {
+  path: "*",
+  name: "not-found",
+  component: _components_NotFound_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   mode: "history",
